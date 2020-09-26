@@ -33,7 +33,7 @@ app.use('/api', indexRoute);
 //rota para produto
 app.use('/api/produtos/', productRoute);
 app.use('/api/categorias/', categoryRoute);
-app.use('/api/customer/', customerRoute);
+app.use('/api/clientes/', customerRoute);
 
 
 app.listen(port, () => {

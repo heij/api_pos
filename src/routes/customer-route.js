@@ -10,5 +10,9 @@ router.get('/:customerId', customerController.getById);
 router.get('/', customerController.getAll);
 //post localhost:3000/api/produtos
 router.post('/', customerController.post);
+//put
+router.put('/:customerId', customerController.put);
+//delete
+router.delete('/:customerId', customerController.delete);
 
 module.exports = router;
