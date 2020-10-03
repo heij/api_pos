@@ -4,7 +4,8 @@ exports.getAll = async (req, res) => {
     try {
         let data = await repository.getAll();
         return res.status(200).json({
-            data: data
+            data: data,
+            dataCount: data.length
         });
     } catch (err) {
         return res.status(500).json({
@@ -16,6 +17,11 @@ exports.getAll = async (req, res) => {
 exports.getById = async (req, res) => {
     try {
         let data = await repository.getById(req.params.productId);
+        if (!data.length) {
+            return res.status(400).json({
+                message: `O ID ${req.params.productId} não corresponde a nenhum produto existente;`
+            });
+        }
         return res.status(200).json({
             data: data
         });
@@ -39,6 +45,7 @@ exports.post = async (req, res) => {
             message: 'Produto inserido com sucesso'
         });
     } catch (err) {
+        console.log({ err })
         return res.status(500).json({
             message: 'Falha ao processar requisição'
         });

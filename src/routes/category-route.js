@@ -22,13 +22,13 @@ router.post('/', function (req, res) {
 
 //get all localhost:3000/api/categorias
 router.get('/', function (req, res) {
-    Categoria.find(function (err, prods) {
+    Categoria.find(function (err, cats) {
         if (err)
             res.send(err);
 
         res.status(200).json({
             message: "retorno ok de todos os categorias",
-            allProducts: prods
+            categories: cats
         });
     });
 });

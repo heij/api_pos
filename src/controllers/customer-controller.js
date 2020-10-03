@@ -1,24 +1,5 @@
 const repository = require('../repositories/customer-repository');
 
-exports.post = async (req, res) => {
-    try {
-        await repository.post({
-            nome: req.body.nome,
-            email: req.body.email,
-            senha: req.body.senha,
-        });
-
-        return res.status(200).json({
-            message: 'Cliente inserido com sucesso'
-        });
-    } catch (err) {
-        console.log(err)
-        return res.status(500).json({
-            message: 'Falha ao processar requisição'
-        });
-    }
-}
-
 exports.getById = async (req, res) => {
     try {
         let data = await repository.getById(req.params.customerId);
@@ -66,6 +47,20 @@ exports.delete = async (req, res) => {
         return res.status(200).json();
     } catch (err) {
         console.log(err)
+        return res.status(500).json({
+            message: 'Falha ao processar requisição'
+        });
+    }
+}
+
+exports.register = async (req, res) => {
+    try {
+        const { nome, email, senha } = req.body;
+        await repository.register(nome, email, senha);
+        return res.status(200).json({
+            message: 'Usuário cadastrado com sucesso'
+        });
+    } catch (err) {
         return res.status(500).json({
             message: 'Falha ao processar requisição'
         });

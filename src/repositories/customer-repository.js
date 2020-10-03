@@ -26,3 +26,20 @@ exports.put = async (id, data) => {
 exports.delete = async (id) => {
     return await Customer.findByIdAndRemove(id);
 }
+
+exports.register = async (name, email, password) => {
+    const result = await Customer.find({ email: email });
+    if (result.length) {
+        throw {
+            status: 400,
+            message: 'Usuário já existente'
+        }
+    }
+
+    let customer = new Customer();
+    customer.nome = name;
+    customer.email = email;
+    customer.senha = customer.generateHash(password);
+
+    return await customer.save();
+}
